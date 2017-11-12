@@ -38,9 +38,8 @@ lines(density(train$SalePrice), # density plot
 
 
 
-
 ## Check for the relationship of the response variable with Numerical Variables
-## We would create pairplot of Sales Price with all numeric variables
+## We would create scatterplot of Sales Price with all numeric variables
 
 train_numeric <- train[,numeric_var]
 
@@ -49,6 +48,28 @@ train_numeric_melt <- melt(train_numeric, id="SalePrice")
 ggplot(train_numeric_melt,aes(x=value, y=SalePrice)) +
   facet_wrap(~variable, scales = "free")+
   geom_point()
+
+
+## Check for the relationship of the response variable with Categorical Variables
+## We would create boxplot of Sales Price with all Categorical variables
+
+train_categorical <- train[,c(cat_var,"SalePrice")]
+
+drawBoxPlots <- function(df){
+  
+  dfMelt <- melt(df, id="SalePrice")
+  
+  p <- ggplot(dfMelt, aes(factor(value), SalePrice)) 
+  p + geom_boxplot() + facet_wrap(~variable, scale="free")  
+  
+}
+
+drawBoxPlots(train_categorical[,c(1:8,ncol(train_categorical))])
+drawBoxPlots(train_categorical[,c(9,ncol(train_categorical))])
+drawBoxPlots(train_categorical[,c(10:15,ncol(train_categorical))])
+drawBoxPlots(train_categorical[,c(15:25,ncol(train_categorical))])
+drawBoxPlots(train_categorical[,c(25:35,ncol(train_categorical))])
+drawBoxPlots(train_categorical[,c(35:43,ncol(train_categorical))])
 
 
 ## Check number of NA in all the columns
