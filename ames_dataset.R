@@ -24,7 +24,7 @@ numeric_var <- names(train)[which(sapply(train, is.numeric))]
 
 str(train)
 
-## Check for the relationship of the response variable 
+## Check for the relationship of the response variable with Numerical Variables
 
 
 ## Check number of NA in all the columns
