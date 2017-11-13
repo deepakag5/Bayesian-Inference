@@ -72,7 +72,49 @@ drawBoxPlots(train_categorical[,c(25:35,ncol(train_categorical))])
 drawBoxPlots(train_categorical[,c(35:43,ncol(train_categorical))])
 
 
-## Check number of NA in all the columns
+## Check the correlation matrix to see significant variables and also check multi-colliearity
 
+trainCorr = cor(na.omit(train_numeric))
+
+head(round(trainCorr,2))
+
+row_indic <- apply(trainCorr, 1, function(x) sum(x > 0.5 | x < -0.5) > 1)
+
+trainCorr_subset<- trainCorr[row_indic ,row_indic ]
+
+corrplot(trainCorr_subset, method = "number", type="lower", tl.srt=45)
+
+
+## Perform the ANOVA Test to check association of catrgorical variable with numeric / nominal and discrete
+
+# Convert the categorical variables to factors
+
+trainFact <- as.data.frame(sapply(train_categorical[,cat_var],as.factor))
+
+# Add SalePrice variable to dataframe
+
+trainFact <- cbind(trainFact,"SalePrice"=train[,"SalePrice"])
+
+# Remove the categorical variable having most values(~50%) as NA
+
+na_cat_var <- c("Alley","Functional","Fence","PoolQC","MiscFeature","FireplaceQu")
+
+# Remove the NA columns from dataframe
+
+trainFact_sub <- trainFact[,!(colnames(trainFact) %in% na_cat_var)]
+
+# Remove the NAs still left (~100 rows)
+
+trainFact_sub_notna <- na.omit(trainFact_sub)
+
+# Fit a linear model
+
+trainFactModel <- lm(SalePrice~., trainFact_sub_notna)
+
+# Perform ANOVA test
+trainFactAnova <- anova(trainFactModel)
+
+
+## Check number of NA in all the columns
 colSums(sapply(train, is.na))
 
