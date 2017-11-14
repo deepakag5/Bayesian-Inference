@@ -1,6 +1,6 @@
 ## Load and install the required libraries
 
-load.libraries <- c('data.table', 'testthat', 'gridExtra', 'corrplot', 'GGally', 'ggplot2', 'e1071', 'dplyr','reshape2')
+load.libraries <- c('Hmisc','mice','data.table', 'testthat', 'gridExtra', 'corrplot', 'GGally', 'ggplot2', 'e1071', 'dplyr','reshape2')
 install.lib <- load.libraries[!load.libraries %in% installed.packages()]
 
 for(libs in install.lib) install.packages(libs)
@@ -117,6 +117,17 @@ trainFactAnova <- anova(trainFactModel)
 
 ## Dealing with Missing Data
 
+
+train_raw <- read.csv("train.csv")
+
+# Convert the required columns to factors
+train_raw$MSSubClass <- as.factor(train_raw$MSSubClass)
+train_raw$MoSold <- as.factor(train_raw$MoSold)
+train_raw$YrSold <- as.factor(train_raw$YrSold)
+
+# Draw a missing map to see which columns have maximum NAs
+missmap(train_raw[-1], col=c('red', 'green'), y.cex=0.6, x.cex=0.8)
+
 # Check number of NA in all the columns
 MissingValues <- as.data.frame(colSums(sapply(train,is.na)))  
 
@@ -128,12 +139,52 @@ colnames(MissingValues) <- c("columnName","totalNA_Values")
 
 # Transform totalNA to percent, add it as column and arrange in descending order on the basis of it
 MissingValues <- MissingValues %>% 
-                    mutate_at(vars(totalNA_Values),funs(percentNA_Values=.*100/nrow(train))) %>% 
-                                                                          arrange(desc(percentNA_Values)) 
+  mutate_at(vars(totalNA_Values),funs(percentNA_Values=.*100/nrow(train))) %>% 
+  arrange(desc(percentNA_Values)) 
 
 # Check the top columns having maximum NA values 
 head(MissingValues,n=10)
 
 
+# Drop columns having more than 20 % missing values
+
+exclude <- c('PoolQC', 'MiscFeature', 'Alley', 'Fence')
+include <- setdiff(names(train_raw), exclude)
+
+train_raw <- train_raw[include]
+
+imp.train_raw <- mice(train_raw, m=1, method='cart', printFlag=FALSE)
+
+
+## Check the siginificant variables using the imputed values
+
+# Some numeric variables
+xyplot(imp.train_raw, LotFrontage ~ LotArea)
+
+
+densityplot(imp.train_raw, ~LotFrontage)
+
+
+# Some categorical variables
+table(train_raw$GarageType)
+
+table(imp.train_raw$imp$GarageType)
+
+table(train_raw$GarageFinish)
+
+table(imp.train_raw$imp$GarageFinish)
+
+table(train_raw$BsmtExposure)
+
+table(imp.train_raw$imp$BsmtExposure)
+
+
+# Use the imputed values in the original dataframe
+train_complete <- complete(imp.train_raw)
+
+# Check if there are any more NA values
+sum(sapply(train_complete, function(x) { sum(is.na(x)) }))
+
+summary(train_complete)
 
 
