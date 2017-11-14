@@ -1,6 +1,7 @@
 ## Load and install the required libraries
 
-load.libraries <- c('Hmisc','mice','data.table', 'testthat', 'gridExtra', 'corrplot', 'GGally', 'ggplot2', 'e1071', 'dplyr','reshape2')
+load.libraries <- c('Hmisc','mice','Amelia','data.table', 'testthat', 'gridExtra', 'corrplot', 
+                    'GGally', 'ggplot2', 'e1071', 'dplyr','reshape2')
 install.lib <- load.libraries[!load.libraries %in% installed.packages()]
 
 for(libs in install.lib) install.packages(libs)
