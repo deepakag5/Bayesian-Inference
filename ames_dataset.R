@@ -115,6 +115,25 @@ trainFactModel <- lm(SalePrice~., trainFact_sub_notna)
 trainFactAnova <- anova(trainFactModel)
 
 
-## Check number of NA in all the columns
-colSums(sapply(train, is.na))
+## Dealing with Missing Data
+
+# Check number of NA in all the columns
+MissingValues <- as.data.frame(colSums(sapply(train,is.na)))  
+
+# Convert ronames to columns
+MissingValues <- as.data.frame(setDT(MissingValues, keep.rownames = TRUE))
+
+# Rename the column names
+colnames(MissingValues) <- c("columnName","totalNA_Values")
+
+# Transform totalNA to percent, add it as column and arrange in descending order on the basis of it
+MissingValues <- MissingValues %>% 
+                    mutate_at(vars(totalNA_Values),funs(percentNA_Values=.*100/nrow(train))) %>% 
+                                                                          arrange(desc(percentNA_Values)) 
+
+# Check the top columns having maximum NA values 
+head(MissingValues,n=10)
+
+
+
 
