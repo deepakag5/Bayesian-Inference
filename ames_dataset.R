@@ -1,7 +1,7 @@
 ## Load and install the required libraries
 
 load.libraries <- c('Hmisc','mice','Amelia','data.table', 'testthat', 'gridExtra', 'corrplot', 
-                    'GGally', 'ggplot2', 'e1071', 'dplyr','reshape2')
+                    'GGally', 'ggplot2', 'e1071', 'dplyr','reshape2','dummies')
 install.lib <- load.libraries[!load.libraries %in% installed.packages()]
 
 for(libs in install.lib) install.packages(libs)
@@ -187,5 +187,60 @@ train_complete <- complete(imp.train_raw)
 sum(sapply(train_complete, function(x) { sum(is.na(x)) }))
 
 summary(train_complete)
+
+
+## Normality Test
+
+ggplot(train_complete, aes(SalePrice)) +
+  geom_density() +
+  scale_x_continuous(breaks = c(0,200000,400000,755000))
+
+
+qqnorm(train_complete$SalePrice,main = "Normal Q-Q Plot",
+       xlab = "Theoretical Quantiles", ylab = "Sample Quantiles",
+       plot.it = TRUE)
+qqline(train_complete$SalePrice)
+
+train_complete_norm <- train_complete %>% mutate(SalePriceNorm = log(SalePrice))
+
+
+# LogNormal Distribution of SalePrice
+
+ggplot(train_complete_norm, aes(SalePriceNorm)) +
+  geom_density() +
+  scale_x_continuous(breaks = c(0,200000,400000,755000))
+
+
+qqnorm(train_complete_norm$SalePriceNorm,main = "Normal Q-Q Plot",
+       xlab = "Theoretical Quantiles", ylab = "Sample Quantiles",
+       plot.it = TRUE)
+qqline(train_complete_norm$SalePriceNorm)
+
+
+train_complete_dummy <- dummy.data.frame(train_complete,sep='_')
+
+ncol(train_complete_dummy)
+
+
+#write.csv(summary(train_complete_dummy),"c.csv")
+
+
+## Homoscedesticity Test
+
+numeric_var_norm <- names(train_complete_norm)[which(sapply(train_complete_norm, is.numeric))]
+
+train_complete_numeric <- train_complete_norm[,numeric_var_norm]
+
+train_complete_numeric_melt <- melt(train_complete_numeric, id="SalePriceNorm")
+
+ggplot(train_complete_numeric_melt,aes(x=value, y=SalePriceNorm)) +
+  facet_wrap(~variable, scales = "free")+
+  geom_point()
+
+## Multiple Linear Regression
+
+train_complete_dummy <- train_complete_dummy %>% mutate(SalePriceNorm = log(SalePrice))
+
+SalePriceNorm_full = lm(SalePriceNorm ~ . - SalePrice, data = train_complete_dummy)
 
 
