@@ -216,6 +216,7 @@ qqnorm(train_complete_norm$SalePriceNorm,main = "Normal Q-Q Plot",
        plot.it = TRUE)
 qqline(train_complete_norm$SalePriceNorm)
 
+## Create Dummmy Variables for Categorical Variables
 
 train_complete_dummy <- dummy.data.frame(train_complete,sep='_')
 
@@ -241,6 +242,6 @@ ggplot(train_complete_numeric_melt,aes(x=value, y=SalePriceNorm)) +
 
 train_complete_dummy <- train_complete_dummy %>% mutate(SalePriceNorm = log(SalePrice))
 
-SalePriceNorm_full = lm(SalePriceNorm ~ . - SalePrice, data = train_complete_dummy)
+SalePriceNorm_Full = lm(SalePriceNorm ~ . - SalePrice, data = train_complete_dummy)
 
 
