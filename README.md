@@ -28,6 +28,126 @@ By looking at data dictionary it was clear that for some columns values were not
 
 ![4_missingmap](https://user-images.githubusercontent.com/32446623/33157349-7f60790a-cfcf-11e7-972f-e7fd5b58ce15.png)
 
+Using dplyr we create columns which shows us missing values in the dataset and their respective percentages column-wise:
+
+![5_missingvalues](https://user-images.githubusercontent.com/32446623/33157443-17c98312-cfd0-11e7-8e32-ea8c8ea4dad3.png)
+
+As we have a small dataset and removing a good percentage (~17%) of observations is not prudent here. So, instead of removing these rows straightaway, I used mice package to impute data on basis of decision tree methods and checked whether data has been imputed in a sensible way. For numeric variables we check the ditribution and density of the columns with respect to another column with which it has some relationship. As we can see from below graphs that LotFrontage has been imputed in an expected manner.
+
+![6_imputeddatascatter](https://user-images.githubusercontent.com/32446623/33157519-a81da6aa-cfd0-11e7-9b3d-196a0e4bcc82.png)
+
+![7_imputeddatadensity](https://user-images.githubusercontent.com/32446623/33157528-af686346-cfd0-11e7-9167-7110e58ddaeb.png)
+
+For categorical variables we can check the frequency:
+
+![8_imputeddatacategorical](https://user-images.githubusercontent.com/32446623/33157601-50a16e56-cfd1-11e7-99c1-4fe8b1679ff8.png)
+
+As we know to apply Linear Regression we should satisfy below assumptions :
+
+Linear relationship
+Multivariate normality
+No or little multicollinearity
+No auto-correlation
+Homoscedasticity
+
+Here, we check the relationship of numeric predictor variable with SalePrice by drawing scatter plots:
+
+![10_salepricevsnumeric](https://user-images.githubusercontent.com/32446623/33157605-50cd8ca2-cfd1-11e7-8630-ce9fbc83243d.png)
+
+For Categorical variables we draw box plots:
+
+![11_salepricevscategorical](https://user-images.githubusercontent.com/32446623/33157606-50d8d9ae-cfd1-11e7-87a3-49de77969b0f.png)
+
+To address multi-collinearity and auto-correlation we need check correlation between numerical variables. There should not be multi-collinearity in the linear models because it causes more noise in the data. To keep our model working correctly, I removed the variables like LotFrontage, FullBath, Garage Area which had strong correlation (>0.6 or <-0.6) based on our correlation plot.
+
+![12_correlationplot](https://user-images.githubusercontent.com/32446623/33157607-50e67730-cfd1-11e7-9690-8e254d712caa.png)
+
+For categorical variables we can use ANOVA test
+
+
+Let's check the distribution of response variable.  :
+
+![9_salepricehist](https://user-images.githubusercontent.com/32446623/33157602-50acc4cc-cfd1-11e7-8661-ad17bf754a52.png)
+
+As we can see, the histogram is skewed right (not normally distributed) as the outliers were present at the higher price range so we can apply square root, cube root or log transformation. We chose log as data is highly skewed.
+
+Also, we draw a Quantile Plot which also shows that data is not noramally distributed.
+
+![13_salepriceqqplot](https://user-images.githubusercontent.com/32446623/33157609-50f2e2fe-cfd1-11e7-8f69-f9df458e8d44.png)
+
+
+Let's check the SalePrice again after applying log transformation.
+
+![14_logsalepricedensity](https://user-images.githubusercontent.com/32446623/33157610-51027fac-cfd1-11e7-9daa-4b96e046e355.png)
+
+![15_logsalepriceqqplot](https://user-images.githubusercontent.com/32446623/33157611-5115e1c8-cfd1-11e7-8e27-2d64bea31a34.png)
+
+
+Let's again draw scatter plots for predictor variables with log transformed SalePrice :
+
+![16_logsalepricevsnumeric](https://user-images.githubusercontent.com/32446623/33157613-513d9ed4-cfd1-11e7-9ace-b3fa310e37d0.png)
+
+Now we apply multiple linear regression and see the summary of it:
+
+[16_linearregression](https://user-images.githubusercontent.com/32446623/33157612-512a72be-cfd1-11e7-9526-acdf953ab080.png)
+
+Also, check the residual plot:
+
+![17_residualplot](https://user-images.githubusercontent.com/32446623/33157614-51597e1a-cfd1-11e7-873f-f096142d2472.png)
+![18_residualqqplot](https://user-images.githubusercontent.com/32446623/33157615-516a81c4-cfd1-11e7-9eba-baabcba70db7.png)
+
+Check the RMSE of Multiple Linear Regression :
+
+![19_rmselinearregression](https://user-images.githubusercontent.com/32446623/33157616-51777d48-cfd1-11e7-9b81-97a161bd4453.png)
+
+
+Let's apply Bayesian Linear Regression and check the results:
+
+![20_bayesianlinearregression](https://user-images.githubusercontent.com/32446623/33157617-5184f50e-cfd1-11e7-9c9c-4f6f4165a10b.png)
+
+We also take a look at the marginal posterior probabilities :
+
+![20_bmacoefficients](https://user-images.githubusercontent.com/32446623/33157618-5192e952-cfd1-11e7-8e97-183d749675c2.png)
+
+Also, we check the 95% confidence intervals for the coefficients:
+
+![21_95percentconfidence](https://user-images.githubusercontent.com/32446623/33157619-51a34e28-cfd1-11e7-9559-94054e1e71ef.png)
+
+We check the posterior distribution of the predictor variable to see the significance of each one of them visually :
+
+![22_posteriorbma](https://user-images.githubusercontent.com/32446623/33157620-51b2623c-cfd1-11e7-8afb-003c2ebb6964.png)
+
+![23_posteriorbma](https://user-images.githubusercontent.com/32446623/33157622-51cf3088-cfd1-11e7-850c-790725864b32.png)
+
+We check the RMSE for different Bayesian Methods namely BMA, BPM, HPM, MPM :
+
+![24_bayesianrmse](https://user-images.githubusercontent.com/32446623/33157623-51e12aa4-cfd1-11e7-9408-41877bb3c8cd.png)
+
+
+Last but not the least, we check the scatter plot of actual vs predicted SalePrice:
+
+![25_salepriceactual](https://user-images.githubusercontent.com/32446623/33157624-51f24d52-cfd1-11e7-85c2-214cf8b29e6f.png)
+
+![26_actualvspredictedsaleprice](https://user-images.githubusercontent.com/32446623/33157625-5202fb02-cfd1-11e7-91e6-9d61c5295c21.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
