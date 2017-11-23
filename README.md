@@ -89,7 +89,7 @@ Let's again draw scatter plots for predictor variables with log transformed Sale
 
 Now we apply multiple linear regression and see the summary of it:
 
-[16_linearregression](https://user-images.githubusercontent.com/32446623/33157612-512a72be-cfd1-11e7-9526-acdf953ab080.png)
+![16_linearregression](https://user-images.githubusercontent.com/32446623/33157612-512a72be-cfd1-11e7-9526-acdf953ab080.png)
 
 Also, check the residual plot:
 
