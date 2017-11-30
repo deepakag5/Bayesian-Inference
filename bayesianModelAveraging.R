@@ -29,11 +29,6 @@ for (estimatorName in colnames(estimatorResults)) {
 ## 95% credible intervals for these coefficients
 confint(coef(bma_SalePrice,estimator = estimatorName),level = 0.95)
 
-# Plot the posterior probabilities
-par(mfrow = c(3,4))
-par(ask=F)
-#plot(coef(bma_SalePrice,estimator = 'BMA'))
-
 yPred <- fitted(bma_SalePrice, type = "response", estimator = "BMA")
 
 exp_yPred <- exp(yPred)
