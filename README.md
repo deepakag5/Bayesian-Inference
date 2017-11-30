@@ -113,12 +113,6 @@ Also, we check the 95% confidence intervals for the coefficients:
 
 ![21_95percentconfidence](https://user-images.githubusercontent.com/32446623/33157619-51a34e28-cfd1-11e7-9559-94054e1e71ef.png)
 
-We check the posterior distribution of the predictor variable to see the significance of each one of them visually :
-
-![22_posteriorbma](https://user-images.githubusercontent.com/32446623/33157620-51b2623c-cfd1-11e7-8afb-003c2ebb6964.png)
-
-![23_posteriorbma](https://user-images.githubusercontent.com/32446623/33157622-51cf3088-cfd1-11e7-850c-790725864b32.png)
-
 We check the RMSE for different Bayesian Methods namely BMA, BPM, HPM, MPM :
 
 ![24_bayesianrmse](https://user-images.githubusercontent.com/32446623/33157623-51e12aa4-cfd1-11e7-9408-41877bb3c8cd.png)
