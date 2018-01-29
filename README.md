@@ -1,5 +1,5 @@
 # Bayesian-Inference
-Bayesian Data Analysis and Model Comparison 
+Bayesian Data Analysis & Model Comparison 
 
 The abstract was taken from the website Kaggle. I chose this specific problem because it provided me an opportunity to take an existing dataset and implement Bayesian Model Averaging (a Bayesian Approach) and compare it with different Bayesian models and also against the Multiple Regression Models calculated in the dataset.
 
