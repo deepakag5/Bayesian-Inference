@@ -62,7 +62,7 @@ To address multi-collinearity and auto-correlation we need check correlation bet
 
 ![12_correlationplot](https://user-images.githubusercontent.com/32446623/33157607-50e67730-cfd1-11e7-9690-8e254d712caa.png)
 
-For categorical variables we can use ANOVA test
+For categorical variables we can use chi-square test
 
 
 Let's check the distribution of response variable.  :
