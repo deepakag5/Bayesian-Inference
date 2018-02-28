@@ -119,6 +119,12 @@ We check the RMSE for different Bayesian Methods namely BMA, BPM, HPM, MPM :
 
 Coming to the most important observation of Bayesian Analysis , we would also like to check the parameter probabilities and plot the beta coefficient posterior distribution for each feature. 
 
+![22_posteriorbma](https://user-images.githubusercontent.com/32446623/36808324-be76b662-1c92-11e8-91d4-e5c9dc440d63.png)
+
+
+![23_posteriorbma](https://user-images.githubusercontent.com/32446623/36808331-c5da9810-1c92-11e8-83ab-07b98a7112b7.png)
+
+
 
 Notice how weakest features like “MasVnrArea”,"BedroomAbvGr","OpenPorchSF", have a large overlap with 0. In each plot the overlap is quantified by the height of the black vertical line extending up from x=0. While the significant variables like "Garagecars","GrLivArea","PoolArea", "EnclosedPorch","KitchenAbvGrd" don't have this vertical line and also the width of the distribution shows how significant that variable in idetifying target variable (Sales Price) here. The narrower the width, the more significant the distribution is which can be compared by looking at linear regression p-value coefficients.
 
