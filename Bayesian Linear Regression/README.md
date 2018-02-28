@@ -117,6 +117,11 @@ We check the RMSE for different Bayesian Methods namely BMA, BPM, HPM, MPM :
 
 ![24_bayesianrmse](https://user-images.githubusercontent.com/32446623/33157623-51e12aa4-cfd1-11e7-9408-41877bb3c8cd.png)
 
+Coming to the most important observation of Bayesian Analysis , we would also like to check the parameter probabilities and plot the beta coefficient posterior distribution for each feature. 
+
+
+Notice how weakest features like “MasVnrArea”,"BedroomAbvGr","OpenPorchSF", have a large overlap with 0. In each plot the overlap is quantified by the height of the black vertical line extending up from x=0. While the significant variables like "Garagecars","GrLivArea","PoolArea", "EnclosedPorch","KitchenAbvGrd" don't have this vertical line and also the width of the distribution shows how significant that variable in idetifying target variable (Sales Price) here. The narrower the width, the more significant the distribution is which can be compared by looking at linear regression p-value coefficients.
+
 
 Last but not the least, we check the scatter plot of actual vs predicted SalePrice:
 
@@ -125,8 +130,9 @@ Last but not the least, we check the scatter plot of actual vs predicted SalePri
 ![26_actualvspredictedsaleprice](https://user-images.githubusercontent.com/32446623/33157625-5202fb02-cfd1-11e7-91e6-9d61c5295c21.png)
 
 
+Conclusion
 
-
+In our analysis, Bayesian Analysis (interval estimation) shows a clear edge over more traditional Multiple Linear Regression (point estimation or frequentist). I hope the above analysis was lucid and would have helped in understading Bayesian Data Analysis.
 
 
 
