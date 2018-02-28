@@ -30,7 +30,7 @@ significantVars <- exploratoryDataAnalysis(train_preProcessed)
 # Preprocess Test DataSet
 test_preProcessed <- dataPreprocess(testDatasetFile)
 
-# Apply Frequentionist Approach - Multiple Linear Regression
+# Apply Frequentist Approach - Multiple Linear Regression
 multipleLinearRegression(train_preProcessed,test_preProcessed,significantVars)
 
 
