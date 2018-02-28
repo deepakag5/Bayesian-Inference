@@ -138,7 +138,7 @@ Last but not the least, we check the scatter plot of actual vs predicted SalePri
 
 Conclusion
 
-In our analysis, Bayesian Analysis (interval estimation) shows a clear edge over more traditional Multiple Linear Regression (point estimation or frequentist). I hope the above analysis was lucid and would have helped in understading Bayesian Data Analysis.
+In our analysis, Bayesian Analysis (interval estimation) shows a clear edge over more traditional Multiple Linear Regression (point estimation or frequentist). I hope the above analysis was lucid and would have helped in understanding Bayesian Data Analysis.
 
 
 
