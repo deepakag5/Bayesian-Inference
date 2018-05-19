@@ -15,7 +15,7 @@ STEP-3 Finally Install 'rjags' package in Rstudio
 
 ### MAC OS :
 
-STEP-1 Download JAGS Library from this repository (.dmg file) or follow below link :
+STEP-1 Download JAGS Library from this repository (JAGS-4.3.0.dmg file) or follow below link :
        
 https://sourceforge.net/projects/mcmc-jags/files/JAGS/4.x/Mac%20OS%20X/JAGS-4.3.0.dmg/download
 
