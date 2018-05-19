@@ -49,9 +49,9 @@ STEP-3 Finally Install 'rjags' package in Rstudio
 
 
 
-## Additional Notes 
+## Additional Notes (For Mac OS users)
 
-Sometimes graphs are not displayed when we run program with RStudio (especially for MAC OS). 
+Sometimes graphs are not displayed when we run program with RStudio 
 
 For that please download X11 :
 
