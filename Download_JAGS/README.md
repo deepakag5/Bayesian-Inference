@@ -61,3 +61,5 @@ To install it please watch below youtube video till 2 minutes :
 
 https://www.youtube.com/watch?v=uS4zTqfwSSQ
  
+(Quick Note : If your MAC system is not allowing you to install the software you may need to provide permission to download apps from third party. Please follow below youtube link to see how it needs to be done :
+https://www.youtube.com/watch?v=xFpVqkyXFy4)
