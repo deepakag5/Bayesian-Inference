@@ -1,5 +1,5 @@
 
-## Download JAGS library
+## Download and Install JAGS library and rjags package for Bayesian Data Analysis using MCMC
 
 ### Windows :
 
